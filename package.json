@@ -1,0 +1,27 @@
+{
+  "name": "api-ecommerce",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ecommerceberlin/api-ecommerce.git"
+  },
+  "author": "adam zygadlewicz <adam.zygadlewicz@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "next",
+    "debug": "DEBUG=ioredis:*  next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "ioredis": "^4.23.0",
+    "lodash": "^4.17.20",
+    "moment": "^2.29.0",
+    "moment-timezone": "^0.5.32",
+    "next": "10.0.5",
+    "node-fetch": "^2.6.1",
+    "react": "16.13.1",
+    "react-dom": "16.13.1"
+  }
+}

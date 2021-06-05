@@ -4,7 +4,7 @@ import Redis from 'ioredis'
 import isArray from 'lodash/isArray'
 import isEmpty from 'lodash/isEmpty'
 
-
+import Fingerprint from  'express-fingerprint'
 
 
 export class RedisHelper {
@@ -101,8 +101,50 @@ export class RedisHelper {
 }
   
 
+// Helper method to wait for a middleware to execute before continuing
+// And to throw an error when an error happens in a middleware
+export function runMiddleware(req, res, fn) {
+  return new Promise((resolve, reject) => {
+    fn(req, res, (result) => {
+      if (result instanceof Error) {
+        return reject(result)
+      }
+
+      return resolve(result)
+    })
+  })
+}
 
 
+
+
+const fingerprint = Fingerprint({
+	parameters:[
+		// Defaults
+		Fingerprint.useragent,
+		Fingerprint.acceptHeaders,
+		Fingerprint.geoip,
+
+		// Additional parameters
+		function(next) {
+			// ...do something...
+			next(null,{
+			'param1':'value1'
+			})
+		},
+		function(next) {
+			// ...do something...
+			next(null,{
+			'param2':'value2'
+			})
+		},
+	]
+})
+
+
+export async function addFingerprint(){
+  return await runMiddleware(req, res, fingerprint)
+}
 
 // Initializing the cors middleware
 const cors = Cors({
@@ -111,20 +153,6 @@ const cors = Cors({
   credentials: true,
 })
 
-
-// Helper method to wait for a middleware to execute before continuing
-// And to throw an error when an error happens in a middleware
-export function runMiddleware(req, res, fn) {
-    return new Promise((resolve, reject) => {
-      fn(req, res, (result) => {
-        if (result instanceof Error) {
-          return reject(result)
-        }
-  
-        return resolve(result)
-      })
-    })
-  }
 
 
 export async function addCors(req, res){

@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "cors": "^2.8.5",
+    "express-fingerprint": "^1.2.2",
     "ioredis": "^4.23.0",
     "lodash": "^4.17.20",
     "moment": "^2.29.0",

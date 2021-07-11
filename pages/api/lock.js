@@ -17,21 +17,16 @@ async function handler(req, res) {
 
     //project name or transaction widget id?
 
-    const redis = new RedisHelper(`locks`)
- 
-  
-    await redis.addToList([{id: req.fingerprint.hash, sth: 123}])
- 
-    const data = await redis.getList()
+    // const redis = new RedisHelper(`locks`)
+    // await redis.addToList([{id: req.fingerprint.hash, sth: 123}])
+    // const data = await redis.getList()
 
     const {body: {order}} = req
     
     //validate order...
+    // redis.quit()
 
-
-    redis.quit()
-
-    res.json( {fingerprint: req.fingerprint.hash, body: order, data})
+    res.json( {fingerprint: req.fingerprint.hash, body: order, })
 }
 
 export default handler
